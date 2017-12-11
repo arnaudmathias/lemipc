@@ -6,7 +6,7 @@
 #    By: amathias <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/03 11:09:29 by amathias          #+#    #+#              #
-#    Updated: 2017/12/09 18:36:10 by amathias         ###   ########.fr        #
+#    Updated: 2017/12/11 16:06:09 by amathias         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ LIB_NAME = -lft
 LIB = $(addprefix -L,$(LIB_PATH))
 LFLAGS = $(LIB) $(LIB_NAME)
 
-INC_PATH = ./libft ./include
+INC_PATH = ./include
 INC = $(addprefix -I,$(INC_PATH))
 
 all: lib $(NAME)

@@ -6,35 +6,68 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/09 18:32:27 by amathias          #+#    #+#             */
-/*   Updated: 2017/12/09 19:37:02 by amathias         ###   ########.fr       */
+/*   Updated: 2017/12/11 17:44:51 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemipc.h"
 
-void	init_shared_memory()
+void	perr_exit(char *msg)
 {
-	key_t key;
-	int shmid;
-	char *data;
-
-	if (access("/tmp/ipc_board", F_OK) != 0) {
-		creat("/tmp/ipc_board", 0644);
-	}
-	key = ftok("/tmp/ipc_board", 'R');
-	if ((shmid = shmget(key, 1024, 0644 | IPC_CREAT)) < 0) {
-		perror("shmget");
-		exit(1);
-	}
-	if ((data = shmat(shmid, NULL, 0)) == (char *) -1) {
-		perror("shmat");
-		exit(1);
-	}
-	/* shmctl(shmid, IPC_RMID, NULL); // Destroy shared memory */
+	perror(msg);
+	exit(EXIT_FAILURE);
 }
 
-int main()
+void	init_semaphores(t_env *env)
 {
-	init_shared_memory();
-	return 0;
+	int		need_init;
+
+	need_init = 0;
+	if ((env->sem_board = sem_open(SEM_BOARD, O_CREAT, 0777, 0)) != SEM_FAILED)
+		need_init = 1;
+	else if ((env->sem_board = sem_open(SEM_BOARD, 0)) != SEM_FAILED)
+		need_init = 0;
+	else
+		perr_exit("sem_open");
+}
+
+void	init_shared_memory(t_env *env)
+{
+	int			shm_fd;
+	t_shared	*shared;
+	int			need_init;
+
+	init_semaphores(env);
+	need_init = 0;
+	if ((shm_fd = shm_open(SHARED_BOARD, O_RDWR | O_CREAT, 777)) != -1)
+		need_init = 1;
+	else if ((shm_fd = shm_open(SHARED_BOARD, 0)) == -1)
+		perr_exit("shm_open");
+	if (need_init)
+	{
+		if (need_init && ftruncate(shm_fd, sizeof(t_shared)) == -1)
+			perr_exit("ftruncate");
+		if ((shared = mmap(NULL, sizeof(t_shared), PROT_READ | PROT_WRITE,
+				MAP_SHARED, shm_fd, 0)) == MAP_FAILED)
+			perr_exit("mmap");
+		ft_memset(shared, 0, sizeof(t_shared));
+	}
+}
+
+void	delete_shared_memory(t_env *env)
+{
+	if (munmap(env->board, sizeof(t_shared)) == -1)
+		perr_exit("munmap");
+	sem_unlink(SEM_BOARD);
+	shm_unlink(SHARED_BOARD);
+}
+
+int		main(void)
+{
+	t_env	env;
+
+	ft_memset(&env, 0, sizeof(t_env));
+	init_shared_memory(&env);
+	delete_shared_memory(&env);
+	return (EXIT_SUCCESS);
 }
