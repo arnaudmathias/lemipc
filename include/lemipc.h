@@ -6,15 +6,15 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/09 18:31:40 by amathias          #+#    #+#             */
-/*   Updated: 2017/12/11 17:40:37 by amathias         ###   ########.fr       */
+/*   Updated: 2017/12/11 19:01:25 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEMIPC_H
 # define LEMIPC_H
 # define BOARD_SIZE 16
-# define SHARED_BOARD "/board2"
-# define SEM_BOARD "/board_sem1"
+# define SHARED_BOARD "/board"
+# define SEM_BOARD "/board_sem"
 
 # include <sys/stat.h>
 # include <sys/msg.h>
@@ -30,6 +30,7 @@
 
 typedef struct	s_shared
 {
+	int			player_counter;
 	int			board[BOARD_SIZE][BOARD_SIZE];
 }				t_shared;
 

@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/09 18:32:27 by amathias          #+#    #+#             */
-/*   Updated: 2017/12/11 17:44:51 by amathias         ###   ########.fr       */
+/*   Updated: 2017/12/11 19:01:15 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,7 @@ void	init_semaphores(t_env *env)
 	need_init = 0;
 	if ((env->sem_board = sem_open(SEM_BOARD, O_CREAT, 0777, 0)) != SEM_FAILED)
 		need_init = 1;
-	else if ((env->sem_board = sem_open(SEM_BOARD, 0)) != SEM_FAILED)
-		need_init = 0;
-	else
+	else if ((env->sem_board = sem_open(SEM_BOARD, 0)) == SEM_FAILED)
 		perr_exit("sem_open");
 }
 
@@ -60,6 +58,7 @@ void	delete_shared_memory(t_env *env)
 		perr_exit("munmap");
 	sem_unlink(SEM_BOARD);
 	shm_unlink(SHARED_BOARD);
+	printf("delete shared memory\n");
 }
 
 int		main(void)
@@ -68,6 +67,14 @@ int		main(void)
 
 	ft_memset(&env, 0, sizeof(t_env));
 	init_shared_memory(&env);
-	delete_shared_memory(&env);
+	if (sem_wait(env.sem_board) == 0) {
+		env.board->player_counter--;
+		if (env.board->player_counter == 0) {
+			sem_post(env.sem_board);
+			delete_shared_memory(&env);
+		} else {
+			sem_post(env.sem_board);
+		}
+	}
 	return (EXIT_SUCCESS);
 }
