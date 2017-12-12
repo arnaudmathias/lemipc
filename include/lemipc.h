@@ -6,14 +6,14 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/09 18:31:40 by amathias          #+#    #+#             */
-/*   Updated: 2017/12/11 19:01:25 by amathias         ###   ########.fr       */
+/*   Updated: 2017/12/12 11:20:25 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEMIPC_H
 # define LEMIPC_H
 # define BOARD_SIZE 16
-# define SHARED_BOARD "/board"
+# define SHARED_BOARD "/board6"
 # define SEM_BOARD "/board_sem"
 
 # include <sys/stat.h>
@@ -26,6 +26,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <fcntl.h>
+# include <assert.h>
 # include "libft.h"
 
 typedef struct	s_shared

@@ -6,7 +6,7 @@
 #    By: amathias <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/03 11:09:29 by amathias          #+#    #+#              #
-#    Updated: 2017/12/11 16:06:09 by amathias         ###   ########.fr        #
+#    Updated: 2017/12/12 10:29:18 by amathias         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,3 +47,10 @@ fclean: clean
 	make fclean -C ./libft
 
 re: fclean all
+
+debug: CFLAGS += -g -D _DEBUG
+debug:
+	$(RM) $(OBJ)
+	make debug -C ./libft
+	make $(NAME)
+

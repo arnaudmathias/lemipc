@@ -6,7 +6,7 @@
 #    By: amathias <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/26 14:24:02 by amathias          #+#    #+#              #
-#    Updated: 2015/12/20 16:47:40 by amathias         ###   ########.fr        #
+#    Updated: 2017/12/12 10:27:27 by amathias         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -79,7 +79,7 @@ SRC_NAME =  ft_memset.c			\
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 NAME = libft.a
-CC = gcc
+CC = clang
 AR = ar rc
 RAN = ranlib
 RM = rm -f
@@ -87,12 +87,12 @@ CFLAGS = -Wall -Werror -Wextra
 
 all: $(NAME)
 
-$(NAME): $(OBJ_NAME) 
+$(NAME): $(OBJ_NAME)
 	$(AR) $(NAME) $(OBJ_NAME)
 	$(RAN) $(NAME)
 
 %.o: %.c
-	$(CC) $(CFLAGS) -o $@ -c $< 
+	$(CC) $(CFLAGS) -o $@ -c $<
 
 clean:
 	$(RM) $(OBJ_NAME)
@@ -101,3 +101,6 @@ fclean: clean
 	$(RM) $(NAME)
 
 re: fclean all
+
+debug: CFLAGS += -g -D _DEBUG
+debug: re
