@@ -6,16 +6,23 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/09 18:32:27 by amathias          #+#    #+#             */
-/*   Updated: 2017/12/12 11:56:37 by amathias         ###   ########.fr       */
+/*   Updated: 2017/12/12 14:53:28 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemipc.h"
 
-void	connect_player(t_env *env)
+void	connect_player(t_env *env, int team_num)
 {
 	ft_memset(env, 0, sizeof(t_env));
 	init_shared_memory(env);
+	if (team_num >= 0 && team_num < (BOARD_SIZE * BOARD_SIZE) / 2)
+	{
+		env->team_id = team_num;
+		// Place user on the map
+	}
+	else
+		err_exit("Invalid team id");
 	env->shared->player_counter++;
 }
 
@@ -45,11 +52,16 @@ void	sig_handler(int signum)
 	exit(0);
 }
 
-int		main(void)
+int		main(int argc, char **argv)
 {
 	struct sigaction	sigact;
 
-	connect_player(&g_env);
+	if (argc != 2)
+	{
+		ft_putstr("Invalid usage: ./lemipc <team_num>\n");
+		exit(EXIT_FAILURE);
+	}
+	connect_player(&g_env, ft_atoi(argv[1]));
 	sigact.sa_handler = sig_handler;
 	sigaction(SIGINT, &sigact, NULL);
 	game_display(&g_env);

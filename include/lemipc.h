@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/09 18:31:40 by amathias          #+#    #+#             */
-/*   Updated: 2017/12/12 11:57:16 by amathias         ###   ########.fr       */
+/*   Updated: 2017/12/12 15:28:02 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,24 @@
 # include <signal.h>
 # include "libft.h"
 
+typedef struct	s_team
+{
+	char		*name;
+}				t_team;
+
 typedef struct	s_shared
 {
 	int			player_counter;
-	char		board[BOARD_SIZE][BOARD_SIZE];
+	int			board[BOARD_SIZE][BOARD_SIZE];
 }				t_shared;
 
 typedef	struct	s_env
 {
 	t_shared	*shared;
 	sem_t		*sem_board;
+	int			team_id;
+	int			pos_x;
+	int			pos_y;
 }				t_env;
 
 t_env			g_env;
@@ -50,4 +58,5 @@ void			delete_shared_memory(t_env *env);
 void			game_display(t_env *env);
 
 void			perr_exit(char *msg);
+void			err_exit(char *msg);
 #endif
