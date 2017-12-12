@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/09 18:32:27 by amathias          #+#    #+#             */
-/*   Updated: 2017/12/12 14:53:28 by amathias         ###   ########.fr       */
+/*   Updated: 2017/12/12 18:51:23 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,10 @@ void	connect_player(t_env *env, int team_num)
 {
 	ft_memset(env, 0, sizeof(t_env));
 	init_shared_memory(env);
-	if (team_num >= 0 && team_num < (BOARD_SIZE * BOARD_SIZE) / 2)
+	if (team_num > 0 && team_num < (BOARD_SIZE * BOARD_SIZE) / 2)
 	{
 		env->team_id = team_num;
+		place_player(env);
 		// Place user on the map
 	}
 	else
