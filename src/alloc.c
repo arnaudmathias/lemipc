@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 11:28:49 by amathias          #+#    #+#             */
-/*   Updated: 2017/12/12 11:29:08 by amathias         ###   ########.fr       */
+/*   Updated: 2017/12/12 11:40:01 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,12 @@ void	init_shared_memory(t_env *env)
 		perr_exit("mmap");
 	if (need_init)
 		ft_memset(shared, 0, sizeof(t_shared));
-	env->board = shared;
+	env->shared = shared;
 }
 
 void	delete_shared_memory(t_env *env)
 {
-	if (munmap(env->board, sizeof(t_shared)) == -1)
+	if (munmap(env->shared, sizeof(t_shared)) == -1)
 		perr_exit("munmap");
 	sem_unlink(SEM_BOARD);
 	shm_unlink(SHARED_BOARD);

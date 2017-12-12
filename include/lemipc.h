@@ -6,14 +6,14 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/09 18:31:40 by amathias          #+#    #+#             */
-/*   Updated: 2017/12/12 11:30:31 by amathias         ###   ########.fr       */
+/*   Updated: 2017/12/12 11:57:16 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEMIPC_H
 # define LEMIPC_H
-# define BOARD_SIZE 16
-# define SHARED_BOARD "/board6"
+# define BOARD_SIZE 8
+# define SHARED_BOARD "/board7"
 # define SEM_BOARD "/board_sem"
 
 # include <sys/stat.h>
@@ -27,22 +27,27 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # include <assert.h>
+# include <signal.h>
 # include "libft.h"
 
 typedef struct	s_shared
 {
 	int			player_counter;
-	int			board[BOARD_SIZE][BOARD_SIZE];
+	char		board[BOARD_SIZE][BOARD_SIZE];
 }				t_shared;
 
 typedef	struct	s_env
 {
-	t_shared	*board;
+	t_shared	*shared;
 	sem_t		*sem_board;
 }				t_env;
 
-void	init_shared_memory(t_env *env);
-void	delete_shared_memory(t_env *env);
+t_env			g_env;
 
-void	perr_exit(char *msg);
+void			init_shared_memory(t_env *env);
+void			delete_shared_memory(t_env *env);
+
+void			game_display(t_env *env);
+
+void			perr_exit(char *msg);
 #endif
