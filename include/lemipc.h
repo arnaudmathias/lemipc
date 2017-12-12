@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/09 18:31:40 by amathias          #+#    #+#             */
-/*   Updated: 2017/12/12 11:20:25 by amathias         ###   ########.fr       */
+/*   Updated: 2017/12/12 11:30:31 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,8 @@ typedef	struct	s_env
 	sem_t		*sem_board;
 }				t_env;
 
+void	init_shared_memory(t_env *env);
+void	delete_shared_memory(t_env *env);
+
+void	perr_exit(char *msg);
 #endif

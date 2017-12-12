@@ -6,11 +6,13 @@
 #    By: amathias <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/03 11:09:29 by amathias          #+#    #+#              #
-#    Updated: 2017/12/12 10:29:18 by amathias         ###   ########.fr        #
+#    Updated: 2017/12/12 11:29:47 by amathias         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRC =	main.c			\
+		alloc.c			\
+		utils.c			\
 
 SRC_FILES = $(addprefix ./src/,$(SRC))
 OBJ = $(SRC_FILES:.c=.o)
