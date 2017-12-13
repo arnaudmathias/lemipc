@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/13 11:40:06 by amathias          #+#    #+#             */
-/*   Updated: 2017/12/13 19:23:11 by amathias         ###   ########.fr       */
+/*   Updated: 2017/12/13 19:35:57 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,8 @@ void	broadcast_target(t_env *env)
 		j = 0;
 		while (j < BOARD_SIZE)
 		{
-			if (env->shared->board[i][j] == env->team_id)
+			if (env->shared->board[i][j] == env->team_id
+				&& i != env->pos.y && j != env->pos.x)
 				msgsnd(env->msq_target, &msg_target, sizeof(t_msg_target), 0);
 			j++;
 		}
