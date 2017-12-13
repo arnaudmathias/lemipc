@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/09 18:32:27 by amathias          #+#    #+#             */
-/*   Updated: 2017/12/13 17:38:27 by amathias         ###   ########.fr       */
+/*   Updated: 2017/12/13 19:24:20 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	disconnect_player(t_env *env)
 			env->shared->player_ready--;
 		env->shared->board[env->pos.y][env->pos.x] = 0;
 		printf("%d\n", env->shared->player_counter);
-		if (env->shared->player_counter < 0)
+		if (env->shared->player_counter <= 0)
 		{
 			sem_post(env->sem_board);
 			delete_shared_memory(env);

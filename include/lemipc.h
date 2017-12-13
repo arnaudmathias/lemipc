@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/09 18:31:40 by amathias          #+#    #+#             */
-/*   Updated: 2017/12/13 17:49:10 by amathias         ###   ########.fr       */
+/*   Updated: 2017/12/13 19:09:18 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,18 +54,18 @@ typedef	struct	s_env
 {
 	sem_t		*sem_board;
 	t_shared	*shared;
-	int 		msq_gamestatus;
+	int 		msq_target;
 	int			team_id;
 	t_pos		pos;
 	t_pos 		target;
 	int			is_ready;
 }				t_env;
 
-typedef	struct 	s_msg_gamestatus
+typedef	struct 	s_msg_target
 {
 	long 		mtype;
-	int 		is_started;
-}				t_msg_gamestatus;
+	t_pos		target;
+}				t_msg_target;
 
 t_env			g_env;
 
@@ -87,6 +87,8 @@ void			delete_msqs(t_env *env);
 
 void			receive_loop(t_env *env);
 
+int				receive_target(t_env *env);
+void			broadcast_target(t_env *env);
 void			update_target(t_env *env);
 
 void			perr_exit(char *msg);

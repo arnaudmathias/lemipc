@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/13 11:40:06 by amathias          #+#    #+#             */
-/*   Updated: 2017/12/13 17:42:20 by amathias         ###   ########.fr       */
+/*   Updated: 2017/12/13 19:23:11 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,50 @@ int		get_msq_id(char c)
 
 void	init_msqs(t_env *env)
 {
-	env->msq_gamestatus = get_msq_id('G');
+	env->msq_target = get_msq_id('G');
 }
 
 void	delete_msqs(t_env *env)
 {
-	msgctl(env->msq_gamestatus, IPC_RMID, NULL);
+	if (msgctl(env->msq_target, IPC_RMID, NULL))
+	{
+		perr_exit("msgctl");
+	}
+}
+
+int		receive_target(t_env *env)
+{
+	t_msg_target	msg_target;
+
+	if (msgrcv(env->msq_target, &msg_target, sizeof(t_msg_target),
+			env->team_id, IPC_NOWAIT) != -1)
+	{
+		env->target = msg_target.target;
+		return (1);
+	}
+	return (0);
+}
+
+void	broadcast_target(t_env *env)
+{
+	t_msg_target		msg_target;
+	int 				i;
+	int					j;
+
+	msg_target.mtype = env->team_id;
+	msg_target.target = env->target;
+	i = 0;
+	while (i < BOARD_SIZE)
+	{
+		j = 0;
+		while (j < BOARD_SIZE)
+		{
+			if (env->shared->board[i][j] == env->team_id)
+				msgsnd(env->msq_target, &msg_target, sizeof(t_msg_target), 0);
+			j++;
+		}
+		i++;
+	}
 }
 
 void	receive_loop(t_env *env)
