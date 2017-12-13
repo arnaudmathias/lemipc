@@ -6,7 +6,7 @@
 #    By: amathias <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/03 11:09:29 by amathias          #+#    #+#              #
-#    Updated: 2017/12/13 13:57:14 by amathias         ###   ########.fr        #
+#    Updated: 2017/12/13 15:00:41 by amathias         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,7 @@ SRC =	main.c			\
 		alloc.c			\
 		game.c			\
 		messages.c		\
+		ia.c			\
 		utils.c			\
 
 SRC_FILES = $(addprefix ./src/,$(SRC))

@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/09 18:31:40 by amathias          #+#    #+#             */
-/*   Updated: 2017/12/13 14:14:42 by amathias         ###   ########.fr       */
+/*   Updated: 2017/12/13 16:58:38 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@
 # include <fcntl.h>
 # include <assert.h>
 # include <signal.h>
+# include <math.h>
+# include <time.h>
 # include "libft.h"
 
 typedef struct	s_team
@@ -54,6 +56,7 @@ typedef	struct	s_env
 	int 		msq_gamestatus;
 	int			team_id;
 	t_pos		pos;
+	t_pos 		target;
 }				t_env;
 
 typedef	struct 	s_msg_gamestatus
@@ -64,10 +67,12 @@ typedef	struct 	s_msg_gamestatus
 
 t_env			g_env;
 
+void			disconnect_player(t_env *env);
 void			init_shared_memory(t_env *env);
 void			delete_shared_memory(t_env *env);
 
 void			game_display(t_env *env);
+void			game_loop(t_env *env);
 
 void			place_player(t_env *env);
 
@@ -76,6 +81,9 @@ void			delete_msqs(t_env *env);
 
 void			receive_loop(t_env *env);
 
+void			update_target(t_env *env);
+
 void			perr_exit(char *msg);
 void			err_exit(char *msg);
+void			sig_handler(int signum);
 #endif

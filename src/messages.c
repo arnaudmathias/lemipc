@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/13 11:40:06 by amathias          #+#    #+#             */
-/*   Updated: 2017/12/13 14:24:41 by amathias         ###   ########.fr       */
+/*   Updated: 2017/12/13 15:19:51 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,13 @@ void	send_msgs_gamestatus(t_env *env)
 	gs.mtype = 1;
 	gs.is_started = 1;
 	i = 0;
+	sem_wait(env->sem_board);
 	while (i < env->shared->player_counter)
 	{
 		msgsnd(env->msq_gamestatus, &gs, sizeof(t_msg_gamestatus), 0);
 		i++;
 	}
+	sem_post(env->sem_board);
 }
 
 void	receive_msg_gamestatus(t_env *env)
@@ -57,6 +59,7 @@ void	receive_msg_gamestatus(t_env *env)
 		1, IPC_NOWAIT) != -1)
 	{
 		printf("game start\n");
+		game_loop(env);
 	}
 }
 
@@ -71,7 +74,6 @@ void	receive_loop(t_env *env)
 		{
 			printf("read something\n");
 			send_msgs_gamestatus(env);
-			//TODO: start game
 		}
 		receive_msg_gamestatus(env);
 	}

@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/09 18:32:27 by amathias          #+#    #+#             */
-/*   Updated: 2017/12/13 14:14:28 by amathias         ###   ########.fr       */
+/*   Updated: 2017/12/13 16:58:24 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,9 @@ void	connect_player(t_env *env, int team_num)
 	if (team_num > 0 && team_num < (BOARD_SIZE * BOARD_SIZE) / 2)
 	{
 		env->team_id = team_num;
+		sem_wait(env->sem_board);
 		place_player(env);
-		// Place user on the map
+		sem_post(env->sem_board);
 	}
 	else
 		err_exit("Invalid team id");
@@ -35,7 +36,7 @@ void	disconnect_player(t_env *env)
 		printf("sem_trywait\n");
 		env->shared->player_counter--;
 		printf("%d\n", env->shared->player_counter);
-		if (env->shared->player_counter == 0)
+		if (env->shared->player_counter < 0)
 		{
 			sem_post(env->sem_board);
 			delete_shared_memory(env);
@@ -66,12 +67,13 @@ int		main(int argc, char **argv)
 		ft_putstr("Invalid usage: ./lemipc <team_num>\n");
 		exit(EXIT_FAILURE);
 	}
+	srand(time(NULL));
 	connect_player(&g_env, ft_atoi(argv[1]));
+	//sem_post(g_env.sem_board);
 	sigact.sa_handler = sig_handler;
 	sigaction(SIGINT, &sigact, NULL);
 	game_display(&g_env);
 	receive_loop(&g_env);
-	//getc(stdin);
 	disconnect_player(&g_env);
 	return (EXIT_SUCCESS);
 }
