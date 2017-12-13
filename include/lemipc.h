@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/09 18:31:40 by amathias          #+#    #+#             */
-/*   Updated: 2017/12/13 17:28:03 by amathias         ###   ########.fr       */
+/*   Updated: 2017/12/13 17:49:10 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,10 @@ void			game_display(t_env *env);
 void			game_loop(t_env *env);
 
 void			place_player(t_env *env);
+int				is_pos_free(t_env *env, int x, int y);
+int 			inbound(int x, int y);
+int				is_trapped(t_env *env);
+int				num_of_player_around(t_env *env, int team_num);
 
 void			init_msqs(t_env *env);
 void			delete_msqs(t_env *env);
