@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/09 18:32:27 by amathias          #+#    #+#             */
-/*   Updated: 2017/12/13 11:35:19 by amathias         ###   ########.fr       */
+/*   Updated: 2017/12/13 14:14:28 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	connect_player(t_env *env, int team_num)
 {
 	ft_memset(env, 0, sizeof(t_env));
+	init_msqs(env);
 	init_shared_memory(env);
 	if (team_num > 0 && team_num < (BOARD_SIZE * BOARD_SIZE) / 2)
 	{
@@ -38,6 +39,7 @@ void	disconnect_player(t_env *env)
 		{
 			sem_post(env->sem_board);
 			delete_shared_memory(env);
+			delete_msqs(env);
 		}
 		else
 			sem_post(env->sem_board);
@@ -68,7 +70,8 @@ int		main(int argc, char **argv)
 	sigact.sa_handler = sig_handler;
 	sigaction(SIGINT, &sigact, NULL);
 	game_display(&g_env);
-	getc(stdin);
+	receive_loop(&g_env);
+	//getc(stdin);
 	disconnect_player(&g_env);
 	return (EXIT_SUCCESS);
 }

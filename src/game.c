@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 11:31:18 by amathias          #+#    #+#             */
-/*   Updated: 2017/12/13 11:32:37 by amathias         ###   ########.fr       */
+/*   Updated: 2017/12/13 14:22:37 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,4 +107,12 @@ void	place_player(t_env *env)
 		try++;
 	}
 	//TODO: find first free pos and place user there
+}
+
+void	game_loop(t_env *env)
+{
+	while (42)
+	{
+
+	}
 }
