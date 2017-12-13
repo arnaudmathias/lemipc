@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 11:31:18 by amathias          #+#    #+#             */
-/*   Updated: 2017/12/13 17:49:03 by amathias         ###   ########.fr       */
+/*   Updated: 2017/12/13 17:57:25 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,8 @@ int		has_win(t_env *env)
 		j = 0;
 		while (j < BOARD_SIZE)
 		{
-			if (env->shared->board[i][j] != env->team_id)
+			if (env->shared->board[i][j] != 0
+				&& env->shared->board[i][j] != env->team_id)
 				return (0);
 			j++;
 		}
@@ -113,7 +114,14 @@ void	game_loop(t_env *env)
 			sig_handler(0);
 		}
 		move(env);
-		sem_post(env->sem_board);
+		if (has_win(env))
+		{
+			printf("You win !\n");
+			sem_post(env->sem_board);
+			exit(EXIT_SUCCESS);
+		}
+		else
+			sem_post(env->sem_board);
 		sleep(1);
 	}
 }
