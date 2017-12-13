@@ -6,13 +6,13 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 11:31:18 by amathias          #+#    #+#             */
-/*   Updated: 2017/12/12 18:51:40 by amathias         ###   ########.fr       */
+/*   Updated: 2017/12/13 11:32:37 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemipc.h"
 
-void		game_display(t_env *env)
+void	game_display(t_env *env)
 {
 	int i;
 	int j;
@@ -59,7 +59,7 @@ int		num_of_player_around(t_env *env, int team_num)
 	return (count);
 }
 
-int 	is_trapped(t_env *env)
+int		is_trapped(t_env *env)
 {
 	int x;
 	int y;
@@ -75,7 +75,6 @@ int 	is_trapped(t_env *env)
 				if (env->shared->board[y][x] != env->team_id &&
 					num_of_player_around(env, env->shared->board[y][x] >= 2))
 					return (1);
-
 			}
 			x++;
 		}
@@ -84,7 +83,7 @@ int 	is_trapped(t_env *env)
 	return (0);
 }
 
-int 	is_pos_free(t_env *env, t_pos pos)
+int		is_pos_free(t_env *env, t_pos pos)
 {
 	return (env->shared->board[pos.y][pos.x] == 0);
 }

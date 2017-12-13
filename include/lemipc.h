@@ -6,14 +6,14 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/09 18:31:40 by amathias          #+#    #+#             */
-/*   Updated: 2017/12/12 18:47:15 by amathias         ###   ########.fr       */
+/*   Updated: 2017/12/13 11:29:09 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEMIPC_H
 # define LEMIPC_H
 # define BOARD_SIZE 8
-# define SHARED_BOARD "/board7"
+# define SHARED_BOARD "/board"
 # define SEM_BOARD "/board_sem"
 
 # include <sys/stat.h>

@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 11:28:49 by amathias          #+#    #+#             */
-/*   Updated: 2017/12/12 11:40:01 by amathias         ###   ########.fr       */
+/*   Updated: 2017/12/13 11:34:17 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ void	init_shared_memory(t_env *env)
 
 	init_semaphores(env);
 	need_init = 0;
-	if ((shm_fd = shm_open(SHARED_BOARD, O_RDWR | O_CREAT | O_EXCL, 0666)) != -1)
+	if ((shm_fd = shm_open(SHARED_BOARD, O_RDWR | O_CREAT | O_EXCL, 0666))
+			!= -1)
 		need_init = 1;
 	else if ((shm_fd = shm_open(SHARED_BOARD, O_RDWR | O_CREAT)) == -1)
 		perr_exit("shm_open");
