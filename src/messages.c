@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/13 11:40:06 by amathias          #+#    #+#             */
-/*   Updated: 2017/12/13 15:19:51 by amathias         ###   ########.fr       */
+/*   Updated: 2017/12/13 17:42:20 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,47 +34,27 @@ void	delete_msqs(t_env *env)
 	msgctl(env->msq_gamestatus, IPC_RMID, NULL);
 }
 
-void	send_msgs_gamestatus(t_env *env)
-{
-	t_msg_gamestatus	gs;
-	int 				i;
-
-	gs.mtype = 1;
-	gs.is_started = 1;
-	i = 0;
-	sem_wait(env->sem_board);
-	while (i < env->shared->player_counter)
-	{
-		msgsnd(env->msq_gamestatus, &gs, sizeof(t_msg_gamestatus), 0);
-		i++;
-	}
-	sem_post(env->sem_board);
-}
-
-void	receive_msg_gamestatus(t_env *env)
-{
-	t_msg_gamestatus gs;
-
-	if (msgrcv(env->msq_gamestatus, &gs, sizeof(t_msg_gamestatus),
-		1, IPC_NOWAIT) != -1)
-	{
-		printf("game start\n");
-		game_loop(env);
-	}
-}
-
 void	receive_loop(t_env *env)
 {
-	char buf[1024];
+	char buf[2];
 
-	fcntl(0, F_SETFL, O_NONBLOCK);
-	while (42)
+	printf("Press enter when you're ready\n");
+	if (read(0, buf, 2) > 0)
 	{
-		if (read(0, buf, 1024) > 0)
+		sem_wait(env->sem_board);
+		env->shared->player_ready++;
+		env->is_ready = 1;
+		sem_post(env->sem_board);
+		while (42)
 		{
-			printf("read something\n");
-			send_msgs_gamestatus(env);
+			sem_wait(env->sem_board);
+			if (env->shared->player_ready == env->shared->player_counter)
+			{
+				sem_post(env->sem_board);
+				game_loop(env);
+			}
+			else
+				sem_post(env->sem_board);
 		}
-		receive_msg_gamestatus(env);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/09 18:31:40 by amathias          #+#    #+#             */
-/*   Updated: 2017/12/13 16:58:38 by amathias         ###   ########.fr       */
+/*   Updated: 2017/12/13 17:28:03 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef struct	s_team
 typedef struct	s_shared
 {
 	int			player_counter;
+	int 		player_ready;
 	int			board[BOARD_SIZE][BOARD_SIZE];
 }				t_shared;
 
@@ -51,12 +52,13 @@ typedef struct	s_pos
 
 typedef	struct	s_env
 {
-	t_shared	*shared;
 	sem_t		*sem_board;
+	t_shared	*shared;
 	int 		msq_gamestatus;
 	int			team_id;
 	t_pos		pos;
 	t_pos 		target;
+	int			is_ready;
 }				t_env;
 
 typedef	struct 	s_msg_gamestatus

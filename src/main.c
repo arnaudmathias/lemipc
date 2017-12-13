@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/09 18:32:27 by amathias          #+#    #+#             */
-/*   Updated: 2017/12/13 16:58:24 by amathias         ###   ########.fr       */
+/*   Updated: 2017/12/13 17:38:27 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,9 @@ void	disconnect_player(t_env *env)
 	{
 		printf("sem_trywait\n");
 		env->shared->player_counter--;
+		if (env->is_ready)
+			env->shared->player_ready--;
+		env->shared->board[env->pos.y][env->pos.x] = 0;
 		printf("%d\n", env->shared->player_counter);
 		if (env->shared->player_counter < 0)
 		{
@@ -69,7 +72,6 @@ int		main(int argc, char **argv)
 	}
 	srand(time(NULL));
 	connect_player(&g_env, ft_atoi(argv[1]));
-	//sem_post(g_env.sem_board);
 	sigact.sa_handler = sig_handler;
 	sigaction(SIGINT, &sigact, NULL);
 	game_display(&g_env);

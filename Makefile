@@ -6,7 +6,7 @@
 #    By: amathias <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/03 11:09:29 by amathias          #+#    #+#              #
-#    Updated: 2017/12/13 15:00:41 by amathias         ###   ########.fr        #
+#    Updated: 2017/12/13 17:29:41 by amathias         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ OBJ = $(SRC_FILES:.c=.o)
 NAME = lemipc
 CC = clang
 RM = rm -f
-CFLAGS = -Wall -Werror -Wextra -pedantic -g -fsanitize=undefined
+CFLAGS = -Wall -Werror -Wextra -pedantic -g -fsanitize=address
 
 LIB_PATH = ./libft/
 LIB_NAME = -lft
