@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/13 14:32:58 by amathias          #+#    #+#             */
-/*   Updated: 2017/12/14 17:21:57 by amathias         ###   ########.fr       */
+/*   Updated: 2017/12/14 17:44:23 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,26 @@ float	get_total_distance(t_env *env, t_pos target_pos)
 	return (sum);
 }
 
+void	update_distance(t_env *env, t_pos pos, float *min_distance,
+			t_pos *target)
+{
+	float	tmp_distance;
+
+	if (env->shared->board[pos.y][pos.x] != 0
+			&& env->shared->board[pos.y][pos.x] != env->team_id)
+	{
+		tmp_distance = get_total_distance(env, pos);
+		if (tmp_distance < *min_distance)
+		{
+			*target = pos;
+			*min_distance = tmp_distance;
+		}
+	}
+}
+
 t_pos	get_new_target(t_env *env)
 {
 	float	min_distance;
-	float	tmp_distance;
 	t_pos	pos;
 	t_pos	target;
 
@@ -51,16 +67,7 @@ t_pos	get_new_target(t_env *env)
 		pos.x = 0;
 		while (pos.x < BOARD_SIZE)
 		{
-			if (env->shared->board[pos.y][pos.x] != 0
-					&& env->shared->board[pos.y][pos.x] != env->team_id)
-			{
-				tmp_distance = get_total_distance(env, pos);
-				if (tmp_distance < min_distance)
-				{
-					target = pos;
-					min_distance = tmp_distance;
-				}
-			}
+			update_distance(env, pos, &min_distance, &target);
 			pos.x++;
 		}
 		pos.y++;
@@ -71,6 +78,7 @@ t_pos	get_new_target(t_env *env)
 void	update_target(t_env *env)
 {
 	t_pos new_target;
+
 	if (receive_target(env) == 0)
 	{
 		new_target = get_new_target(env);

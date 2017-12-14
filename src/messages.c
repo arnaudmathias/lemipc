@@ -6,27 +6,22 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/13 11:40:06 by amathias          #+#    #+#             */
-/*   Updated: 2017/12/14 09:56:44 by amathias         ###   ########.fr       */
+/*   Updated: 2017/12/14 17:46:20 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemipc.h"
 
-int		get_msq_id(char c)
+void	init_msqs(t_env *env)
 {
-	key_t key;
-	int msqid;
+	key_t	key;
+	int		msqid;
 
 	if (access("/tmp/lempipc", F_OK) != 0)
 		creat("/tmp/lemipc", 0666);
-	key = ftok("/tmp/lemipc", c);
+	key = ftok("/tmp/lemipc", 'G');
 	msqid = msgget(key, 0666 | IPC_CREAT);
-	return (msqid);
-}
-
-void	init_msqs(t_env *env)
-{
-	env->msq_target = get_msq_id('G');
+	env->msq_target = msqid;
 }
 
 void	delete_msqs(t_env *env)
@@ -53,7 +48,7 @@ int		receive_target(t_env *env)
 void	broadcast_target(t_env *env, t_pos target)
 {
 	t_msg_target		msg_target;
-	int 				i;
+	int					i;
 	int					j;
 
 	msg_target.mtype = env->team_id;
