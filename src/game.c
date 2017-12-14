@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 11:31:18 by amathias          #+#    #+#             */
-/*   Updated: 2017/12/14 16:22:02 by amathias         ###   ########.fr       */
+/*   Updated: 2017/12/14 17:31:06 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,12 +82,15 @@ int		has_win(t_env *env)
 
 void	move(t_env *env)
 {
-	t_pos	oldpos;
+	t_pos	new_pos;
 
-	oldpos = env->pos;
-	env->pos = find_path(env, env->pos, env->target);
-	env->shared->board[oldpos.y][oldpos.x] = 0;
-	env->shared->board[env->pos.y][env->pos.x] = env->team_id;
+	new_pos = find_path(env, env->pos, env->target);
+	if (is_pos_free(env, new_pos.x, new_pos.y))
+	{
+		env->shared->board[env->pos.y][env->pos.x] = 0;
+		env->shared->board[new_pos.y][new_pos.x] = env->team_id;
+		env->pos = new_pos;
+	}
 }
 
 void	game_loop(t_env *env)
