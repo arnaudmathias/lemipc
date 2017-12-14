@@ -6,17 +6,20 @@
 #    By: amathias <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/03 11:09:29 by amathias          #+#    #+#              #
-#    Updated: 2017/12/13 17:46:46 by amathias         ###   ########.fr        #
+#    Updated: 2017/12/14 16:26:17 by amathias         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRC =	main.c			\
-		alloc.c			\
-		game.c			\
-		game_utils.c	\
-		messages.c		\
-		ia.c			\
-		utils.c			\
+SRC =	main.c				\
+		alloc.c				\
+		game.c				\
+		game_utils.c		\
+		messages.c			\
+		pathfinding.c		\
+		pathfinding_utils.c	\
+		ia.c				\
+		lpos.c				\
+		utils.c				\
 
 SRC_FILES = $(addprefix ./src/,$(SRC))
 OBJ = $(SRC_FILES:.c=.o)

@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/13 14:32:58 by amathias          #+#    #+#             */
-/*   Updated: 2017/12/13 19:13:13 by amathias         ###   ########.fr       */
+/*   Updated: 2017/12/14 16:45:37 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_pos	get_pos(int x, int y)
 
 float	get_distance(t_pos pos1, t_pos pos2)
 {
-	return (sqrtf((pos1.x - pos2.x) * (pos1.y - pos2.y)));
+	return (sqrtf(abs((pos1.x - pos2.x)) * abs((pos1.y - pos2.y))));
 }
 
 float	get_total_distance(t_env *env, t_pos target_pos)
@@ -65,7 +65,7 @@ t_pos	get_new_target(t_env *env)
 		pos.x = 0;
 		while (pos.x < BOARD_SIZE)
 		{
-			if (env->shared->board[pos.y][pos.x] == 0
+			if (env->shared->board[pos.y][pos.x] != 0
 					&& env->shared->board[pos.y][pos.x] != env->team_id)
 			{
 				tmp_distance = get_total_distance(env, pos);
@@ -88,6 +88,7 @@ void	update_target(t_env *env)
 	if (receive_target(env) == 0)
 	{
 		new_target = get_new_target(env);
-		broadcast_target(env);
+		broadcast_target(env, new_target);
+		env->target = new_target;
 	}
 }

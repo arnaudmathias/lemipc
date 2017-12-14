@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 11:31:18 by amathias          #+#    #+#             */
-/*   Updated: 2017/12/13 19:36:19 by amathias         ###   ########.fr       */
+/*   Updated: 2017/12/14 16:22:02 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,9 @@ void	game_display(t_env *env)
 		{
 			if (env->shared->board[i][j] == 0)
 				printf("%c", 'o');
+			else if (i == env->pos.y && j == env->pos.x)
+				printf("%s%d%s", ANSI_COLOR_RED, env->shared->board[i][j],
+						ANSI_COLOR_RESET);
 			else
 				printf("%d", env->shared->board[i][j]);
 			j++;
@@ -82,20 +85,7 @@ void	move(t_env *env)
 	t_pos	oldpos;
 
 	oldpos = env->pos;
-	if (env->target.x < env->pos.x && inbound(env->pos.x - 1, env->pos.y)
-			&& is_pos_free(env, env->pos.x - 1, env->pos.y))
-		env->pos.x--;
-	else if (env->target.x > env->pos.x && inbound(env->pos.x + 1, env->pos.y)
-			&& is_pos_free(env, env->pos.x + 1, env->pos.y))
-		env->pos.x++;
-	else if (env->target.y < env->pos.y && inbound(env->pos.x, env->pos.y - 1)
-			&& is_pos_free(env, env->pos.x, env->pos.y - 1))
-		env->pos.y--;
-	else if (env->target.y > env->pos.y && inbound(env->pos.x, env->pos.y + 1)
-			&& is_pos_free(env, env->pos.x, env->pos.y + 1))
-		env->pos.y++;
-	else
-		return ;
+	env->pos = find_path(env, env->pos, env->target);
 	env->shared->board[oldpos.y][oldpos.x] = 0;
 	env->shared->board[env->pos.y][env->pos.x] = env->team_id;
 }
