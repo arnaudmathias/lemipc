@@ -6,7 +6,7 @@
 #    By: amathias <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/03 11:09:29 by amathias          #+#    #+#              #
-#    Updated: 2017/12/14 16:26:17 by amathias         ###   ########.fr        #
+#    Updated: 2017/12/14 17:23:37 by amathias         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ SRC =	main.c				\
 		pathfinding_utils.c	\
 		ia.c				\
 		lpos.c				\
+		calc_utils.c		\
 		utils.c				\
 
 SRC_FILES = $(addprefix ./src/,$(SRC))

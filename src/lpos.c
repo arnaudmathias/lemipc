@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/14 11:48:51 by amathias          #+#    #+#             */
-/*   Updated: 2017/12/14 17:05:48 by amathias         ###   ########.fr       */
+/*   Updated: 2017/12/14 17:22:43 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,6 @@ t_lpos	*new_pos(t_pos pos, int counter)
 	lpos->counter = counter;
 	lpos->next = NULL;
 	return (lpos);
-}
-
-int		pos_equal(t_pos	pos1, t_pos pos2)
-{
-	return (pos1.x == pos2.x && pos1.y == pos2.y);
 }
 
 void	remove_pos(t_lpos **lpos, t_pos pos)

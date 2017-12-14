@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/14 16:22:49 by amathias          #+#    #+#             */
-/*   Updated: 2017/12/14 16:55:51 by amathias         ###   ########.fr       */
+/*   Updated: 2017/12/14 17:19:27 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,11 @@ t_lpos	*get_adjacent_pos_list(t_pos pos, int counter)
 	t_lpos	*adjacent_list;
 
 	adjacent_list = new_pos(get_pos(pos.x + 1, pos.y), counter + 1);
-	push_back_pos(&adjacent_list, new_pos(get_pos(pos.x - 1, pos.y), counter + 1));
-	push_back_pos(&adjacent_list, new_pos(get_pos(pos.x, pos.y + 1), counter + 1));
-	push_back_pos(&adjacent_list, new_pos(get_pos(pos.x, pos.y - 1), counter + 1));
+	push_back_pos(&adjacent_list,
+			new_pos(get_pos(pos.x - 1, pos.y), counter + 1));
+	push_back_pos(&adjacent_list,
+			new_pos(get_pos(pos.x, pos.y + 1), counter + 1));
+	push_back_pos(&adjacent_list,
+			new_pos(get_pos(pos.x, pos.y - 1), counter + 1));
 	return (adjacent_list);
 }

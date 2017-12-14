@@ -6,31 +6,17 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/13 14:32:58 by amathias          #+#    #+#             */
-/*   Updated: 2017/12/14 16:45:37 by amathias         ###   ########.fr       */
+/*   Updated: 2017/12/14 17:21:57 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemipc.h"
 
-t_pos	get_pos(int x, int y)
-{
-	t_pos pos;
-
-	pos.x = x;
-	pos.y = y;
-	return (pos);
-}
-
-float	get_distance(t_pos pos1, t_pos pos2)
-{
-	return (sqrtf(abs((pos1.x - pos2.x)) * abs((pos1.y - pos2.y))));
-}
-
 float	get_total_distance(t_env *env, t_pos target_pos)
 {
 	float	sum;
-	int i;
-	int j;
+	int		i;
+	int		j;
 
 	i = 0;
 	sum = 0.0f;

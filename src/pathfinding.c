@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/14 12:53:22 by amathias          #+#    #+#             */
-/*   Updated: 2017/12/14 17:03:00 by amathias         ###   ########.fr       */
+/*   Updated: 2017/12/14 17:12:41 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,13 +56,12 @@ void	eval_adjalist(t_env *env, t_lpos **main_list, t_lpos **adja_list)
 	push_back_remaining(main_list, adja_list);
 }
 
-t_pos	get_next_pos(t_lpos	*main_list, t_lpos *final)
+t_pos	get_next_pos(t_lpos *main_list, t_lpos *final)
 {
 	while (main_list)
 	{
 		if (main_list->counter == final->counter - 1)
 		{
-
 			if (are_adjacent(main_list->pos, final->pos) == 1)
 				return (main_list->pos);
 		}
@@ -71,7 +70,7 @@ t_pos	get_next_pos(t_lpos	*main_list, t_lpos *final)
 	return (get_pos(0, 0));
 }
 
-t_pos	find_path(t_env *env, t_pos	start, t_pos target)
+t_pos	find_path(t_env *env, t_pos start, t_pos target)
 {
 	t_lpos	*main_list;
 	t_lpos	*adja_list;
