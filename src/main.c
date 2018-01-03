@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/09 18:32:27 by amathias          #+#    #+#             */
-/*   Updated: 2018/01/03 17:57:51 by amathias         ###   ########.fr       */
+/*   Updated: 2018/01/03 18:12:32 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,10 @@ void	disconnect_player(t_env *env)
 {
 	if (sem_wait(env->sem_board) == 0)
 	{
-		printf("sem_trywait\n");
 		env->shared->player_counter--;
 		if (env->is_ready)
 			env->shared->player_ready--;
 		env->shared->board[env->pos.y][env->pos.x] = 0;
-		printf("%d\n", env->shared->player_counter);
 		if (env->shared->player_counter <= 0)
 		{
 			sem_post(env->sem_board);
@@ -57,6 +55,26 @@ void	disconnect_player(t_env *env)
 		perr_exit("sem_trywait");
 	if (munmap(env->shared, sizeof(t_shared)) == -1)
 		perr_exit("munmap");
+	exit(0);
+}
+
+void	disconnect_waiting_player(t_env *env)
+{
+	env->shared->player_counter--;
+	if (env->is_ready)
+		env->shared->player_ready--;
+	env->shared->board[env->pos.y][env->pos.x] = 0;
+	if (env->shared->player_counter <= 0)
+	{
+		sem_post(env->sem_board);
+		delete_shared_memory(env);
+		delete_msqs(env);
+	}
+	else
+		sem_post(env->sem_board);
+	if (munmap(env->shared, sizeof(t_shared)) == -1)
+		perr_exit("munmap");
+	exit(0);
 }
 
 void	sig_handler(int signum)

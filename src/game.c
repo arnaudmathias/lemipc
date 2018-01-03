@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 11:31:18 by amathias          #+#    #+#             */
-/*   Updated: 2018/01/03 16:30:42 by amathias         ###   ########.fr       */
+/*   Updated: 2018/01/03 18:06:38 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,16 +98,12 @@ void	game_loop(t_env *env)
 		sem_wait(env->sem_board);
 		update_target(env);
 		if (is_trapped(env))
-		{
-			sem_post(env->sem_board);
-			sig_handler(0);
-		}
+			disconnect_waiting_player(env);
 		move(env);
 		if (has_win(env))
 		{
 			printf("You win !\n");
-			sem_post(env->sem_board);
-			sig_handler(0);
+			disconnect_waiting_player(env);
 		}
 		else
 			sem_post(env->sem_board);

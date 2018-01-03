@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 11:28:49 by amathias          #+#    #+#             */
-/*   Updated: 2018/01/03 17:56:26 by amathias         ###   ########.fr       */
+/*   Updated: 2018/01/03 18:12:56 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,4 @@ void	delete_shared_memory(t_env *env)
 		perr_exit("munmap");
 	sem_unlink(SEM_BOARD);
 	shm_unlink(SHARED_BOARD);
-	printf("delete shared memory\n");
 }

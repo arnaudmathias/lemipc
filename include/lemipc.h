@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/09 18:31:40 by amathias          #+#    #+#             */
-/*   Updated: 2018/01/03 17:50:59 by amathias         ###   ########.fr       */
+/*   Updated: 2018/01/03 18:04:10 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,8 @@ typedef	struct	s_lpos
 }				t_lpos;
 
 void			disconnect_player(t_env *env);
+void			disconnect_waiting_player(t_env *env);
+
 void			init_shared_memory(t_env *env);
 void			init_shared_memory_graph(t_env *env);
 void			delete_shared_memory(t_env *env);
