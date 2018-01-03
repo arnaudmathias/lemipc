@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/13 17:44:26 by amathias          #+#    #+#             */
-/*   Updated: 2018/01/03 12:07:40 by amathias         ###   ########.fr       */
+/*   Updated: 2018/01/03 14:33:39 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ int		num_of_player_around(t_env *env, int team_num)
 		}
 		y++;
 	}
-	printf("countd: %d\n", count);
 	return (count);
 }
 

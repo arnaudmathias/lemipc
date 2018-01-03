@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/09 18:32:27 by amathias          #+#    #+#             */
-/*   Updated: 2018/01/03 09:42:17 by amathias         ###   ########.fr       */
+/*   Updated: 2018/01/03 14:29:24 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ int		main(int argc, char **argv)
 	connect_player(&g_env, argv[1]);
 	sigact.sa_handler = sig_handler;
 	sigaction(SIGINT, &sigact, NULL);
-	game_display(&g_env);
 	receive_loop(&g_env);
 	disconnect_player(&g_env);
 	return (EXIT_SUCCESS);
