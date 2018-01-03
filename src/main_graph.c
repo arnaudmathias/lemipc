@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 13:46:59 by amathias          #+#    #+#             */
-/*   Updated: 2018/01/03 17:49:00 by amathias         ###   ########.fr       */
+/*   Updated: 2018/01/03 17:58:14 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	sig_handler(int signum)
 
 void	wait_start(t_env *env)
 {
-	char 			buf[256];
+	char			buf[256];
 	struct pollfd	fd[1];
 	int				ret;
 

@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 11:28:49 by amathias          #+#    #+#             */
-/*   Updated: 2018/01/03 13:59:55 by amathias         ###   ########.fr       */
+/*   Updated: 2018/01/03 17:56:26 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ void	init_semaphores(t_env *env)
 	int		need_init;
 
 	need_init = 0;
-	if ((env->sem_board = sem_open(SEM_BOARD, O_CREAT | O_EXCL, 0666, 1)) != SEM_FAILED)
+	if ((env->sem_board = sem_open(SEM_BOARD, O_CREAT | O_EXCL, 0666, 1))
+			!= SEM_FAILED)
 		need_init = 1;
 	else if ((env->sem_board = sem_open(SEM_BOARD, 0)) == SEM_FAILED)
 		perr_exit("sem_open");

@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/13 11:40:06 by amathias          #+#    #+#             */
-/*   Updated: 2018/01/03 15:38:13 by amathias         ###   ########.fr       */
+/*   Updated: 2018/01/03 17:58:50 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ void	delete_msqs(t_env *env)
 void	broadcast_ready(t_env *env)
 {
 	t_msg_ready		msg_ready;
-	int					i;
-	int					j;
+	int				i;
+	int				j;
 
 	msg_ready.mtype = 1;
 	msg_ready.ready = 1;
