@@ -6,15 +6,15 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/09 18:31:40 by amathias          #+#    #+#             */
-/*   Updated: 2018/01/03 12:33:55 by amathias         ###   ########.fr       */
+/*   Updated: 2018/01/03 14:18:47 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEMIPC_H
 # define LEMIPC_H
 # define BOARD_SIZE 8
-# define SHARED_BOARD "/board"
-# define SEM_BOARD "/board_sem"
+# define SHARED_BOARD "/board2"
+# define SEM_BOARD "/board_sem2"
 # define ANSI_COLOR_RED     "\x1b[31m"
 # define ANSI_COLOR_RESET   "\x1b[0m"
 
@@ -80,6 +80,7 @@ typedef	struct	s_lpos
 
 void			disconnect_player(t_env *env);
 void			init_shared_memory(t_env *env);
+void			init_shared_memory_graph(t_env *env);
 void			delete_shared_memory(t_env *env);
 
 void			game_display(t_env *env);

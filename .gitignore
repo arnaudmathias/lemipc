@@ -52,4 +52,5 @@ Mkfile.old
 dkms.conf
 
 lemipc
+lemipc-graph
 utils/reset_ipc

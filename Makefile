@@ -6,7 +6,7 @@
 #    By: amathias <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/03 11:09:29 by amathias          #+#    #+#              #
-#    Updated: 2017/12/14 17:23:37 by amathias         ###   ########.fr        #
+#    Updated: 2018/01/03 14:12:48 by amathias         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,9 +22,16 @@ SRC =	main.c				\
 		calc_utils.c		\
 		utils.c				\
 
+SRC_GRAPH = main_graph.c	\
+			alloc_graph.c	\
+			utils.c			\
+
 SRC_FILES = $(addprefix ./src/,$(SRC))
+SRC_FILES_GRAPH = $(addprefix ./src/,$(SRC_GRAPH))
 OBJ = $(SRC_FILES:.c=.o)
+OBJ_GRAPH = $(SRC_FILES_GRAPH:.c=.o)
 NAME = lemipc
+NAME = lemipc-graph
 CC = clang
 RM = rm -f
 CFLAGS = -Wall -Werror -Wextra -pedantic -g -fsanitize=address
@@ -37,23 +44,28 @@ LFLAGS = $(LIB) $(LIB_NAME)
 INC_PATH = ./include
 INC = $(addprefix -I,$(INC_PATH))
 
-all: lib $(NAME)
+all: lib lemipc lemipc-graph
 
 lib:
 	make -C ./libft
 
-$(NAME): $(OBJ)
+lemipc: $(OBJ)
 	$(CC) $(CFLAGS) $(OBJ) $(LFLAGS) -o $@
+
+lemipc-graph: $(OBJ_GRAPH)
+	$(CC) $(CFLAGS) $(OBJ_GRAPH) $(LFLAGS) -o $@
 
 %.o: %.c
 	$(CC) $(INC) -o $@ -c $^ $(CFLAGS)
 
 clean:
 	$(RM) $(OBJ)
+	$(RM) $(OBJ_GRAPH)
 	make clean -C ./libft
 
 fclean: clean
-	$(RM) $(NAME)
+	$(RM) lemipc
+	$(RM) lemipc-graph
 	make fclean -C ./libft
 
 re: fclean all
@@ -61,6 +73,7 @@ re: fclean all
 debug: CFLAGS += -g -D _DEBUG
 debug:
 	$(RM) $(OBJ)
+	$(RM) $(OBJ_GRAPH)
 	make debug -C ./libft
 	make $(NAME)
 
