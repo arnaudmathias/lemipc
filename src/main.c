@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/09 18:32:27 by amathias          #+#    #+#             */
-/*   Updated: 2018/01/03 18:12:32 by amathias         ###   ########.fr       */
+/*   Updated: 2018/01/03 18:27:59 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 void	connect_player(t_env *env, char *team_num)
 {
 	if (team_num == NULL || ft_strlen(team_num) != 1
-			|| ft_isprint(team_num[0]) == 0)
+			|| ft_isprint(team_num[0]) == 0 || team_num[0] == '.')
 		err_exit("Invalid argument"
-				": team_num must be a printable ASCII character");
+			": team_num must be any printable ASCII character (except '.')");
 	ft_memset(env, 0, sizeof(t_env));
 	init_msqs(env);
 	init_shared_memory(env);
