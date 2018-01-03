@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 11:31:18 by amathias          #+#    #+#             */
-/*   Updated: 2017/12/14 17:31:06 by amathias         ###   ########.fr       */
+/*   Updated: 2018/01/03 09:43:18 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ void	game_display(t_env *env)
 			if (env->shared->board[i][j] == 0)
 				printf("%c", 'o');
 			else if (i == env->pos.y && j == env->pos.x)
-				printf("%s%d%s", ANSI_COLOR_RED, env->shared->board[i][j],
+				printf("%s%c%s", ANSI_COLOR_RED, env->shared->board[i][j],
 						ANSI_COLOR_RESET);
 			else
-				printf("%d", env->shared->board[i][j]);
+				printf("%c", env->shared->board[i][j]);
 			j++;
 		}
 		printf("\n");

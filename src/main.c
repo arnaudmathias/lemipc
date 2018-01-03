@@ -6,20 +6,22 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/09 18:32:27 by amathias          #+#    #+#             */
-/*   Updated: 2017/12/13 19:24:20 by amathias         ###   ########.fr       */
+/*   Updated: 2018/01/03 09:42:17 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemipc.h"
 
-void	connect_player(t_env *env, int team_num)
+void	connect_player(t_env *env, char *team_num)
 {
+	if (team_num == NULL || ft_strlen(team_num) != 1 || ft_isprint(team_num[0]) == 0)
+		err_exit("Invalid argument: team_num must be a printable ASCII character");
 	ft_memset(env, 0, sizeof(t_env));
 	init_msqs(env);
 	init_shared_memory(env);
-	if (team_num > 0 && team_num < (BOARD_SIZE * BOARD_SIZE) / 2)
+	if (team_num[0] > 0)
 	{
-		env->team_id = team_num;
+		env->team_id = team_num[0];
 		sem_wait(env->sem_board);
 		place_player(env);
 		sem_post(env->sem_board);
@@ -71,7 +73,7 @@ int		main(int argc, char **argv)
 		exit(EXIT_FAILURE);
 	}
 	srand(time(NULL));
-	connect_player(&g_env, ft_atoi(argv[1]));
+	connect_player(&g_env, argv[1]);
 	sigact.sa_handler = sig_handler;
 	sigaction(SIGINT, &sigact, NULL);
 	game_display(&g_env);
