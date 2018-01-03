@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/14 12:53:22 by amathias          #+#    #+#             */
-/*   Updated: 2018/01/03 12:08:41 by amathias         ###   ########.fr       */
+/*   Updated: 2018/01/03 12:40:14 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ t_pos	find_path(t_env *env, t_pos start, t_pos target)
 			target = get_next_pos(main_list, tmp);
 			break ;
 		}
-		adja_list = get_adjacent_pos_list(tmp->pos, tmp->counter);
+		adja_list = get_adjacent_pos_list(env, tmp->pos, tmp->counter);
 		eval_adjalist(env, &main_list, &adja_list);
 		clear_poslist(&adja_list);
 		previous = tmp;

@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/09 18:31:40 by amathias          #+#    #+#             */
-/*   Updated: 2017/12/14 17:39:28 by amathias         ###   ########.fr       */
+/*   Updated: 2018/01/03 12:33:55 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ void			sig_handler(int signum);
 t_pos			find_path(t_env *env, t_pos	start, t_pos target);
 void			push_back_remaining(t_lpos **main_list, t_lpos **adja_list);
 void			print_lpos(t_lpos *lpos);
-t_lpos			*get_adjacent_pos_list(t_pos pos, int counter);
+t_lpos			*get_adjacent_pos_list(t_env *env, t_pos pos, int counter);
 
 t_pos			get_pos(int x, int y);
 int				pos_equal(t_pos	pos1, t_pos pos2);

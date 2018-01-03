@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/14 16:22:49 by amathias          #+#    #+#             */
-/*   Updated: 2017/12/14 17:19:27 by amathias         ###   ########.fr       */
+/*   Updated: 2018/01/03 12:37:58 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,11 @@ void	push_back_remaining(t_lpos **main_list, t_lpos **adja_list)
 	clear_poslist(adja_list);
 }
 
-t_lpos	*get_adjacent_pos_list(t_pos pos, int counter)
+t_lpos	*get_adjacent_pos_list(t_env *env, t_pos pos, int counter)
 {
 	t_lpos	*adjacent_list;
+	t_lpos	*backup_next;
+	t_lpos	*tmp;
 
 	adjacent_list = new_pos(get_pos(pos.x + 1, pos.y), counter + 1);
 	push_back_pos(&adjacent_list,
@@ -60,5 +62,15 @@ t_lpos	*get_adjacent_pos_list(t_pos pos, int counter)
 			new_pos(get_pos(pos.x, pos.y + 1), counter + 1));
 	push_back_pos(&adjacent_list,
 			new_pos(get_pos(pos.x, pos.y - 1), counter + 1));
+	tmp = adjacent_list;
+	while (tmp)
+	{
+		backup_next = tmp->next;
+		if (!is_pos_free(env, tmp->pos.x, tmp->pos.y)
+			&& !pos_equal(tmp->pos, env->target)
+			&& !pos_equal(tmp->pos, env->pos))
+			remove_pos(&adjacent_list, tmp->pos);
+		tmp = backup_next;
+	}
 	return (adjacent_list);
 }
