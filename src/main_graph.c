@@ -6,41 +6,18 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 13:46:59 by amathias          #+#    #+#             */
-/*   Updated: 2018/01/03 14:12:06 by amathias         ###   ########.fr       */
+/*   Updated: 2018/01/03 15:22:10 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemipc.h"
 
-void	game_display(t_env *env)
-{
-	int i;
-	int j;
-
-	i = 0;
-	printf("\n");
-	while (i < BOARD_SIZE)
-	{
-		j = 0;
-		while (j < BOARD_SIZE)
-		{
-			if (env->shared->board[i][j] == 0)
-				printf("%c", 'o');
-			else
-				printf("%c", env->shared->board[i][j]);
-			j++;
-		}
-		printf("\n");
-		i++;
-	}
-}
-
 void	connect_player(t_env *env)
 {
 	ft_memset(env, 0, sizeof(t_env));
 	init_shared_memory_graph(env);
+	init_msqs(env);
 }
-
 
 void	sig_handler(int signum)
 {
@@ -50,8 +27,32 @@ void	sig_handler(int signum)
 	exit(0);
 }
 
+void	wait_start(t_env *env)
+{
+	struct pollfd	fd[1];
+	int				ret;
+
+	fd[0].fd = 0;
+	fd[0].events = POLLIN;
+	while (1)
+	{
+		sem_wait(env->sem_board);
+		system("clear");
+		game_display(env);
+		sem_post(env->sem_board);
+		printf("Press any key to start the game\n");
+		ret = poll(fd, 1, 100);
+		if (ret != 0)
+			break ;
+	}
+}
+
 void	game_loop(t_env *env)
 {
+	wait_start(env);
+	sem_wait(env->sem_board);
+	broadcast_ready(env);
+	sem_post(env->sem_board);
 	while (42)
 	{
 		sem_wait(env->sem_board);

@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/13 17:44:26 by amathias          #+#    #+#             */
-/*   Updated: 2018/01/03 14:33:39 by amathias         ###   ########.fr       */
+/*   Updated: 2018/01/03 15:01:51 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,14 @@ int		is_pos_free(t_env *env, int x, int y)
 	if (inbound(x, y) == 0)
 		return (0);
 	return (env->shared->board[y][x] == 0);
+}
+
+void	receive_loop(t_env *env)
+{
+	t_msg_ready	msg_ready;
+
+	if (msgrcv(env->msq_ready, &msg_ready, sizeof(t_msg_ready), 1, 0) != -1)
+		game_loop(env);
+	else
+	perr_exit("msgrcv");
 }

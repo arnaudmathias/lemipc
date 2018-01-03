@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/09 18:31:40 by amathias          #+#    #+#             */
-/*   Updated: 2018/01/03 14:18:47 by amathias         ###   ########.fr       */
+/*   Updated: 2018/01/03 15:11:14 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@
 # include <signal.h>
 # include <math.h>
 # include <time.h>
+# include <poll.h>
 # include "libft.h"
 
 typedef struct	s_team
@@ -57,6 +58,7 @@ typedef	struct	s_env
 	sem_t		*sem_board;
 	t_shared	*shared;
 	int			msq_target;
+	int			msq_ready;
 	int			team_id;
 	t_pos		pos;
 	t_pos		target;
@@ -68,6 +70,12 @@ typedef	struct	s_msg_target
 	long		mtype;
 	t_pos		target;
 }				t_msg_target;
+
+typedef	struct	s_msg_ready
+{
+	long		mtype;
+	int			ready;
+}				t_msg_ready;
 
 t_env			g_env;
 
@@ -99,6 +107,7 @@ void			receive_loop(t_env *env);
 
 int				receive_target(t_env *env);
 void			broadcast_target(t_env *env, t_pos pos);
+void			broadcast_ready(t_env *env);
 void			update_target(t_env *env);
 
 void			perr_exit(char *msg);
