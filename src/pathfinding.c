@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/14 12:53:22 by amathias          #+#    #+#             */
-/*   Updated: 2017/12/14 17:12:41 by amathias         ###   ########.fr       */
+/*   Updated: 2018/01/03 12:08:41 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,12 @@ void	eval_adjalist(t_env *env, t_lpos **main_list, t_lpos **adja_list)
 	t_lpos	*tmp_adja;
 
 	tmp_adja = *adja_list;
+	(void)env;
 	while (tmp_adja)
 	{
 		backup_next = tmp_adja->next;
 		if (inbound(tmp_adja->pos.x, tmp_adja->pos.y) == 0
-			|| (is_pos_free(env, tmp_adja->pos.x, tmp_adja->pos.y) == 0
-				&& pos_equal(tmp_adja->pos, env->target)))
+				|| pos_equal(tmp_adja->pos, env->target))
 			remove_pos(adja_list, tmp_adja->pos);
 		tmp_adja = backup_next;
 	}

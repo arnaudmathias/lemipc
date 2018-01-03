@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/13 17:44:26 by amathias          #+#    #+#             */
-/*   Updated: 2017/12/13 17:48:50 by amathias         ###   ########.fr       */
+/*   Updated: 2018/01/03 12:07:40 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,7 @@ int		inbound(int x, int y)
 
 int		is_pos_free(t_env *env, int x, int y)
 {
+	if (inbound(x, y) == 0)
+		return (0);
 	return (env->shared->board[y][x] == 0);
 }
