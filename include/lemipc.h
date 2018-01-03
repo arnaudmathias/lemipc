@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/09 18:31:40 by amathias          #+#    #+#             */
-/*   Updated: 2018/01/03 15:55:59 by amathias         ###   ########.fr       */
+/*   Updated: 2018/01/03 17:36:00 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,10 +92,12 @@ void			init_shared_memory_graph(t_env *env);
 void			delete_shared_memory(t_env *env);
 
 int				is_empty(t_env *env);
+int				is_full(t_env *env);
+
 void			game_display(t_env *env);
 void			game_loop(t_env *env);
 
-void			place_player(t_env *env);
+int				place_player(t_env *env);
 int				is_pos_free(t_env *env, int x, int y);
 int				inbound(int x, int y);
 int				is_trapped(t_env *env);

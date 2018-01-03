@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/09 18:32:27 by amathias          #+#    #+#             */
-/*   Updated: 2018/01/03 14:29:24 by amathias         ###   ########.fr       */
+/*   Updated: 2018/01/03 16:29:48 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ void	connect_player(t_env *env, char *team_num)
 	{
 		env->team_id = team_num[0];
 		sem_wait(env->sem_board);
-		place_player(env);
+		if (place_player(env) == 0)
+			err_exit("Error: cannot place player, map is full");
 		sem_post(env->sem_board);
 	}
 	else

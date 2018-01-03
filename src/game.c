@@ -6,19 +6,41 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 11:31:18 by amathias          #+#    #+#             */
-/*   Updated: 2018/01/03 14:35:39 by amathias         ###   ########.fr       */
+/*   Updated: 2018/01/03 16:30:42 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemipc.h"
 
-void	place_player(t_env *env)
+t_pos	find_first_available(t_env *env)
+{
+	int y;
+	int x;
+
+	y = 0;
+	while (y < BOARD_SIZE)
+	{
+		x = 0;
+		while (x < BOARD_SIZE)
+		{
+			if (env->shared->board[y][x] == 0)
+				return (get_pos(x, y));
+			x++;
+		}
+		y++;
+	}
+	return (get_pos(0, 0));
+}
+
+int		place_player(t_env *env)
 {
 	t_pos	pos;
 	int		try;
 
 	try = 0;
-	while (try < BOARD_SIZE * BOARD_SIZE)
+	if (is_full(env))
+		return (0);
+	while (try < 2)
 	{
 		pos.x = rand() % (BOARD_SIZE);
 		pos.y = rand() % (BOARD_SIZE);
@@ -26,11 +48,13 @@ void	place_player(t_env *env)
 		{
 			env->pos = pos;
 			env->shared->board[pos.y][pos.x] = env->team_id;
-			return ;
+			return (1);
 		}
 		try++;
 	}
-	assert(0); //TODO: find first free pos and place user there
+	env->pos = find_first_available(env);
+	env->shared->board[env->pos.y][env->pos.x] = env->team_id;
+	return (1);
 }
 
 int		has_win(t_env *env)
