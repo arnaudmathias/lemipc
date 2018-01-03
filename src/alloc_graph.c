@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 14:00:21 by amathias          #+#    #+#             */
-/*   Updated: 2018/01/03 14:23:06 by amathias         ###   ########.fr       */
+/*   Updated: 2018/01/03 15:39:28 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,17 @@ void	init_shared_memory_graph(t_env *env)
 	init_semaphores_graph(env);
 }
 
-void	delete_shared_memory(t_env *env)
+void	init_msqs_graph(t_env *env)
 {
-	if (munmap(env->shared, sizeof(t_shared)) == -1)
-		perr_exit("munmap");
-	sem_unlink(SEM_BOARD);
-	shm_unlink(SHARED_BOARD);
-	printf("delete shared memory\n");
+	key_t	key;
+
+	if (access("/tmp/lempipc", F_OK) != 0)
+		creat("/tmp/lemipc", 0666);
+	key = ftok("/tmp/lemipc", 'R');
+	while ((env->msq_ready = msgget(key, 0666)) == -1)
+	{
+		system("clear");
+		printf("Shared memory unavailable\n");
+		sleep(1);
+	}
 }

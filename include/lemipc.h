@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/09 18:31:40 by amathias          #+#    #+#             */
-/*   Updated: 2018/01/03 15:11:14 by amathias         ###   ########.fr       */
+/*   Updated: 2018/01/03 15:55:59 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ void			init_shared_memory(t_env *env);
 void			init_shared_memory_graph(t_env *env);
 void			delete_shared_memory(t_env *env);
 
+int				is_empty(t_env *env);
 void			game_display(t_env *env);
 void			game_loop(t_env *env);
 
@@ -101,11 +102,11 @@ int				is_trapped(t_env *env);
 int				num_of_player_around(t_env *env, int team_num);
 
 void			init_msqs(t_env *env);
+void			init_msqs_graph(t_env *env);
 void			delete_msqs(t_env *env);
 
 void			receive_loop(t_env *env);
 
-int				receive_target(t_env *env);
 void			broadcast_target(t_env *env, t_pos pos);
 void			broadcast_ready(t_env *env);
 void			update_target(t_env *env);
@@ -128,4 +129,6 @@ void			push_back_pos(t_lpos **lpos, t_lpos *toadd);
 t_lpos			*new_pos(t_pos pos, int counter);
 void			remove_pos(t_lpos **lpos, t_pos pos);
 void			clear_poslist(t_lpos **begin);
+
+void			reset_graph(t_env *env);
 #endif

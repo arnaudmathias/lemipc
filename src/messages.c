@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/13 11:40:06 by amathias          #+#    #+#             */
-/*   Updated: 2018/01/03 15:22:48 by amathias         ###   ########.fr       */
+/*   Updated: 2018/01/03 15:38:13 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,19 +30,6 @@ void	delete_msqs(t_env *env)
 		perr_exit("msgctl");
 	if (msgctl(env->msq_ready, IPC_RMID, NULL))
 		perr_exit("msgctl");
-}
-
-int		receive_target(t_env *env)
-{
-	t_msg_target	msg_target;
-
-	if (msgrcv(env->msq_target, &msg_target, sizeof(t_msg_target),
-			env->team_id, IPC_NOWAIT) != -1)
-	{
-		env->target = msg_target.target;
-		return (1);
-	}
-	return (0);
 }
 
 void	broadcast_ready(t_env *env)
