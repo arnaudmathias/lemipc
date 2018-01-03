@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 13:46:59 by amathias          #+#    #+#             */
-/*   Updated: 2018/01/03 16:09:15 by amathias         ###   ########.fr       */
+/*   Updated: 2018/01/03 17:49:00 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,13 @@ void	wait_start(t_env *env)
 
 void	game_loop(t_env *env)
 {
-	wait_start(env);
+	int		already_started;
+
+	sem_wait(env->sem_board);
+	already_started = env->shared->started;
+	sem_post(env->sem_board);
+	if (already_started == 0)
+		wait_start(env);
 	while (42)
 	{
 		sem_wait(env->sem_board);

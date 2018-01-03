@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/13 17:44:26 by amathias          #+#    #+#             */
-/*   Updated: 2018/01/03 15:01:51 by amathias         ###   ########.fr       */
+/*   Updated: 2018/01/03 17:44:26 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,20 @@ int		is_pos_free(t_env *env, int x, int y)
 void	receive_loop(t_env *env)
 {
 	t_msg_ready	msg_ready;
+	int			already_started;
 
-	if (msgrcv(env->msq_ready, &msg_ready, sizeof(t_msg_ready), 1, 0) != -1)
+	sem_wait(env->sem_board);
+	printf("started: %d\n", env->shared->started);
+	already_started = env->shared->started;
+	sem_post(env->sem_board);
+	if (already_started || msgrcv(env->msq_ready, &msg_ready, sizeof(t_msg_ready), 1, 0) != -1)
+	{
+		sem_wait(env->sem_board);
+		if (env->shared->started == 0)
+			env->shared->started = 1;
+		sem_post(env->sem_board);
 		game_loop(env);
+	}
 	else
-	perr_exit("msgrcv");
+		perr_exit("msgrcv");
 }

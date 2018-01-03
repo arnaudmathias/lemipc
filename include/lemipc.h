@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/09 18:31:40 by amathias          #+#    #+#             */
-/*   Updated: 2018/01/03 17:36:00 by amathias         ###   ########.fr       */
+/*   Updated: 2018/01/03 17:50:59 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct	s_shared
 {
 	int			player_counter;
 	int			player_ready;
+	int			started;
 	int			board[BOARD_SIZE][BOARD_SIZE];
 }				t_shared;
 
