@@ -6,7 +6,7 @@
 #    By: amathias <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/03 11:09:29 by amathias          #+#    #+#              #
-#    Updated: 2018/01/03 14:41:28 by amathias         ###   ########.fr        #
+#    Updated: 2018/01/03 18:33:20 by amathias         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ NAME = lemipc
 NAME = lemipc-graph
 CC = clang
 RM = rm -f
-CFLAGS = -Wall -Werror -Wextra -pedantic -g -fsanitize=address
+CFLAGS = -Wall -Werror -Wextra
 
 LIB_PATH = ./libft/
 LIB_NAME = -lft
