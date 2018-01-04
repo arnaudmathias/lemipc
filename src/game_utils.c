@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/13 17:44:26 by amathias          #+#    #+#             */
-/*   Updated: 2018/01/04 14:34:52 by amathias         ###   ########.fr       */
+/*   Updated: 2018/01/04 15:20:46 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	receive_loop(t_env *env)
 	sem_post(env->sem_board);
 	if (already_started
 		|| msgrcv(env->msq_ready, &msg_ready, sizeof(msg_ready.ready), 1, 0)
-			!= (ssize_t)-1)
+			!= (ssize_t) - 1)
 	{
 		sem_wait(env->sem_board);
 		if (env->shared->started == 0)
