@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/13 11:40:06 by amathias          #+#    #+#             */
-/*   Updated: 2018/01/04 15:01:20 by amathias         ###   ########.fr       */
+/*   Updated: 2018/01/04 16:31:08 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	broadcast_ready(t_env *env)
 	int				i;
 	int				j;
 
-	msg_ready.mtype = 1;
+	msg_ready.mtype = 46;
 	msg_ready.ready = 1;
 	i = 0;
 	while (i < BOARD_SIZE)
@@ -72,9 +72,11 @@ void	broadcast_target(t_env *env, t_pos target)
 		while (j < BOARD_SIZE)
 		{
 			if (env->shared->board[i][j] == env->team_id
-				&& i != env->pos.y && j != env->pos.x)
+				&& pos_equal(env->pos, get_pos(j, i)) == 0)
+			{
 				msgsnd(env->msq_target, &msg_target,
 						sizeof(msg_target.target), 0);
+			}
 			j++;
 		}
 		i++;

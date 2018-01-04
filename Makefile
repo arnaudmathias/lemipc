@@ -6,7 +6,7 @@
 #    By: amathias <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/03 11:09:29 by amathias          #+#    #+#              #
-#    Updated: 2018/01/03 18:33:20 by amathias         ###   ########.fr        #
+#    Updated: 2018/01/04 15:47:54 by amathias         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ SRC_GRAPH = main_graph.c	\
 			alloc_graph.c	\
 			utils.c			\
 			messages.c		\
+			calc_utils.c	\
 
 SRC_FILES = $(addprefix ./src/,$(SRC))
 SRC_FILES_GRAPH = $(addprefix ./src/,$(SRC_GRAPH))
