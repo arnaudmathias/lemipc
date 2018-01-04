@@ -21,9 +21,6 @@ void	reset_semaphores()
 		need_init = 1;
 	else if ((sem = sem_open(SEM_BOARD, 0)) == SEM_FAILED)
 		need_init = 0;
-	int val;
-	sem_getvalue(sem, &val);
-	printf("sem getvalue: %d\n", val);
 }
 
 void	reset_shared_memory()

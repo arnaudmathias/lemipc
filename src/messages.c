@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/13 11:40:06 by amathias          #+#    #+#             */
-/*   Updated: 2018/01/04 14:28:30 by amathias         ###   ########.fr       */
+/*   Updated: 2018/01/04 15:01:20 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void	init_msqs(t_env *env)
 	{
 		creat("/tmp/lemipc", 0666);
 	}
-	errno = 0;
 	key = ftok("/tmp/lemipc", 'G');
 	env->msq_target = msgget(key, 0666 | IPC_CREAT);
 	key = ftok("/tmp/lemipc", 'R');

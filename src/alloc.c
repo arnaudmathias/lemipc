@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 11:28:49 by amathias          #+#    #+#             */
-/*   Updated: 2018/01/03 18:12:56 by amathias         ###   ########.fr       */
+/*   Updated: 2018/01/04 14:57:11 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void	init_shared_memory(t_env *env)
 		need_init = 1;
 	else if ((shm_fd = shm_open(SHARED_BOARD, O_RDWR | O_CREAT)) == -1)
 		perr_exit("shm_open");
-	printf("shm_fd: %d\n", shm_fd);
 	ftruncate(shm_fd, sizeof(t_shared));
 	if ((shared = mmap(NULL, sizeof(t_shared), PROT_READ | PROT_WRITE,
 			MAP_SHARED, shm_fd, 0)) == MAP_FAILED)

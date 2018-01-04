@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 11:31:18 by amathias          #+#    #+#             */
-/*   Updated: 2018/01/03 18:06:38 by amathias         ###   ########.fr       */
+/*   Updated: 2018/01/04 14:57:30 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void	game_loop(t_env *env)
 		move(env);
 		if (has_win(env))
 		{
-			printf("You win !\n");
+			ft_putendl("You win !");
 			disconnect_waiting_player(env);
 		}
 		else

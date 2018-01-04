@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/12 11:27:33 by amathias          #+#    #+#             */
-/*   Updated: 2018/01/03 18:25:09 by amathias         ###   ########.fr       */
+/*   Updated: 2018/01/04 15:00:29 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,12 @@ void	game_display(t_env *env)
 		while (j < BOARD_SIZE)
 		{
 			if (env->shared->board[i][j] == 0)
-				printf("%c", '.');
+				ft_putchar('.');
 			else
-				printf("%c", env->shared->board[i][j]);
+				ft_putchar(env->shared->board[i][j]);
 			j++;
 		}
-		printf("\n");
+		ft_putchar('\n');
 		i++;
 	}
 }

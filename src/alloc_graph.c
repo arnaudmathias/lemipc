@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 14:00:21 by amathias          #+#    #+#             */
-/*   Updated: 2018/01/04 12:37:41 by amathias         ###   ########.fr       */
+/*   Updated: 2018/01/04 14:58:34 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	init_semaphores_graph(t_env *env)
 	while ((env->sem_board = sem_open(SEM_BOARD, 0)) == SEM_FAILED)
 	{
 		system("clear");
-		printf("Semaphore unavailable\n");
+		ft_putendl("Semaphore unavailable");
 		sleep(1);
 	}
 }
@@ -31,10 +31,9 @@ void	init_shared_memory_graph(t_env *env)
 	while ((shm_fd = shm_open(SHARED_BOARD, O_RDWR)) == -1)
 	{
 		system("clear");
-		printf("Shared memory unavailable\n");
+		ft_putendl("Shared memory unavailable");
 		sleep(1);
 	}
-	printf("shm_fd: %d\n", shm_fd);
 	ftruncate(shm_fd, sizeof(t_shared));
 	if ((shared = mmap(NULL, sizeof(t_shared), PROT_READ,
 			MAP_SHARED, shm_fd, 0)) == MAP_FAILED)
@@ -52,7 +51,7 @@ void	init_msqs_graph(t_env *env)
 	while ((env->msq_ready = msgget(key, 0666)) == -1)
 	{
 		system("clear");
-		printf("Shared memory unavailable\n");
+		ft_putendl("Shared memory unavailable");
 		sleep(1);
 	}
 }

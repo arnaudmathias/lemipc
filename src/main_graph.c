@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 13:46:59 by amathias          #+#    #+#             */
-/*   Updated: 2018/01/04 14:55:23 by amathias         ###   ########.fr       */
+/*   Updated: 2018/01/04 14:57:35 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	wait_start(t_env *env)
 		system("clear");
 		game_display(env);
 		sem_post(env->sem_board);
-		ft_putendl("Press any key to start the game\n");
+		ft_putendl("Press any key to start the game");
 		if (read(0, buf, 255) > 0)
 			break ;
 		usleep(100);

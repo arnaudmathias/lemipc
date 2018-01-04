@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/14 16:22:49 by amathias          #+#    #+#             */
-/*   Updated: 2018/01/03 12:37:58 by amathias         ###   ########.fr       */
+/*   Updated: 2018/01/04 14:59:26 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,6 @@ int		are_adjacent(t_pos pos1, t_pos pos2)
 		return (1);
 	else
 		return (0);
-}
-
-void	print_lpos(t_lpos *lpos)
-{
-	while (lpos)
-	{
-		printf("%d|%d, %d\n", lpos->pos.x, lpos->pos.y, lpos->counter);
-		lpos = lpos->next;
-	}
-	printf("\n");
 }
 
 void	push_back_remaining(t_lpos **main_list, t_lpos **adja_list)
