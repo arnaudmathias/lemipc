@@ -6,17 +6,15 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/09 18:31:40 by amathias          #+#    #+#             */
-/*   Updated: 2018/01/04 14:59:36 by amathias         ###   ########.fr       */
+/*   Updated: 2018/01/04 15:30:09 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEMIPC_H
 # define LEMIPC_H
-# define BOARD_SIZE 8
+# define BOARD_SIZE 16
 # define SHARED_BOARD "/lemipc_board"
 # define SEM_BOARD "/lemipc_board_sem"
-# define ANSI_COLOR_RED     "\x1b[31m"
-# define ANSI_COLOR_RESET   "\x1b[0m"
 
 # include <sys/stat.h>
 # include <sys/msg.h>
