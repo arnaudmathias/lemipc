@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/14 17:21:15 by amathias          #+#    #+#             */
-/*   Updated: 2018/01/04 16:29:16 by amathias         ###   ########.fr       */
+/*   Updated: 2018/01/04 16:52:55 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ t_pos	get_pos(int x, int y)
 
 float	get_distance(t_pos pos1, t_pos pos2)
 {
-	return (sqrtf(fabs((float)(pos1.x - pos2.x)) + fabs((float)(pos1.y - pos2.y))));
+	return (sqrtf(fabs((float)(pos1.x - pos2.x))
+				+ fabs((float)(pos1.y - pos2.y))));
 }
 
 int		pos_equal(t_pos pos1, t_pos pos2)
