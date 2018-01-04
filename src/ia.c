@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/13 14:32:58 by amathias          #+#    #+#             */
-/*   Updated: 2018/01/03 15:35:52 by amathias         ###   ########.fr       */
+/*   Updated: 2018/01/04 14:30:36 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,8 @@ void	update_target(t_env *env)
 	t_pos			new_target;
 	t_msg_target	msg_target;
 
-	if (msgrcv(env->msq_target, &msg_target, sizeof(t_msg_target),
-			env->team_id, IPC_NOWAIT) != -1)
+	if (msgrcv(env->msq_target, &msg_target, sizeof(msg_target.target),
+			env->team_id, IPC_NOWAIT) != (ssize_t)-1)
 	{
 		env->target = msg_target.target;
 	}

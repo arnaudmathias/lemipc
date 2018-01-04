@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 14:00:21 by amathias          #+#    #+#             */
-/*   Updated: 2018/01/03 15:39:28 by amathias         ###   ########.fr       */
+/*   Updated: 2018/01/04 12:37:41 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	init_shared_memory_graph(t_env *env)
 	int			shm_fd;
 	t_shared	*shared;
 
+	init_semaphores_graph(env);
 	while ((shm_fd = shm_open(SHARED_BOARD, O_RDWR)) == -1)
 	{
 		system("clear");
@@ -35,11 +36,10 @@ void	init_shared_memory_graph(t_env *env)
 	}
 	printf("shm_fd: %d\n", shm_fd);
 	ftruncate(shm_fd, sizeof(t_shared));
-	if ((shared = mmap(NULL, sizeof(t_shared), PROT_READ | PROT_WRITE,
+	if ((shared = mmap(NULL, sizeof(t_shared), PROT_READ,
 			MAP_SHARED, shm_fd, 0)) == MAP_FAILED)
 		perr_exit("mmap");
 	env->shared = shared;
-	init_semaphores_graph(env);
 }
 
 void	init_msqs_graph(t_env *env)

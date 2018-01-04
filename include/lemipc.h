@@ -6,15 +6,15 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/09 18:31:40 by amathias          #+#    #+#             */
-/*   Updated: 2018/01/03 18:04:10 by amathias         ###   ########.fr       */
+/*   Updated: 2018/01/04 14:32:56 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEMIPC_H
 # define LEMIPC_H
 # define BOARD_SIZE 8
-# define SHARED_BOARD "/board2"
-# define SEM_BOARD "/board_sem2"
+# define SHARED_BOARD "/lemipc_board"
+# define SEM_BOARD "/lemipc_board_sem"
 # define ANSI_COLOR_RED     "\x1b[31m"
 # define ANSI_COLOR_RESET   "\x1b[0m"
 
@@ -63,7 +63,6 @@ typedef	struct	s_env
 	int			team_id;
 	t_pos		pos;
 	t_pos		target;
-	int			is_ready;
 }				t_env;
 
 typedef	struct	s_msg_target

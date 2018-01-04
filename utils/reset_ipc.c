@@ -21,6 +21,9 @@ void	reset_semaphores()
 		need_init = 1;
 	else if ((sem = sem_open(SEM_BOARD, 0)) == SEM_FAILED)
 		need_init = 0;
+	int val;
+	sem_getvalue(sem, &val);
+	printf("sem getvalue: %d\n", val);
 }
 
 void	reset_shared_memory()
@@ -60,14 +63,8 @@ int		get_msq_id(char c)
 
 void	reset_msqs()
 {
-	key_t key;
-	int msqid;
-
-	if (access("/tmp/lempipc", F_OK) != 0)
-		creat("/tmp/lemipc", 0666);
-	key = ftok("/tmp/lemipc", 'G');
-	msqid = msgget(key, 0666 | IPC_CREAT);
-	msgctl(msqid, IPC_RMID, NULL);
+	msgctl(get_msq_id('G'), IPC_RMID, NULL);
+	msgctl(get_msq_id('R'), IPC_RMID, NULL);
 }
 
 int main(int argc, char *argv[])

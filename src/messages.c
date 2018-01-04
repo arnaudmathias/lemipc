@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/13 11:40:06 by amathias          #+#    #+#             */
-/*   Updated: 2018/01/03 17:58:50 by amathias         ###   ########.fr       */
+/*   Updated: 2018/01/04 14:28:30 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,10 @@ void	init_msqs(t_env *env)
 	key_t	key;
 
 	if (access("/tmp/lempipc", F_OK) != 0)
+	{
 		creat("/tmp/lemipc", 0666);
+	}
+	errno = 0;
 	key = ftok("/tmp/lemipc", 'G');
 	env->msq_target = msgget(key, 0666 | IPC_CREAT);
 	key = ftok("/tmp/lemipc", 'R');
@@ -47,9 +50,8 @@ void	broadcast_ready(t_env *env)
 		while (j < BOARD_SIZE)
 		{
 			if (env->shared->board[i][j] != 0)
-			{
-				msgsnd(env->msq_ready, &msg_ready, sizeof(t_msg_ready), 0);
-			}
+				msgsnd(env->msq_ready, &msg_ready,
+						sizeof(msg_ready.ready), 0);
 			j++;
 		}
 		i++;
@@ -72,9 +74,8 @@ void	broadcast_target(t_env *env, t_pos target)
 		{
 			if (env->shared->board[i][j] == env->team_id
 				&& i != env->pos.y && j != env->pos.x)
-			{
-				msgsnd(env->msq_target, &msg_target, sizeof(t_msg_target), 0);
-			}
+				msgsnd(env->msq_target, &msg_target,
+						sizeof(msg_target.target), 0);
 			j++;
 		}
 		i++;

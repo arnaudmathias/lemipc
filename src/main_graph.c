@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 13:46:59 by amathias          #+#    #+#             */
-/*   Updated: 2018/01/03 17:58:14 by amathias         ###   ########.fr       */
+/*   Updated: 2018/01/04 14:55:23 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,23 +23,19 @@ void	sig_handler(int signum)
 void	wait_start(t_env *env)
 {
 	char			buf[256];
-	struct pollfd	fd[1];
-	int				ret;
 
-	fd[0].fd = 0;
-	fd[0].events = POLLIN;
+	fcntl(0, F_SETFL, fcntl(0, F_GETFL) | O_NONBLOCK);
 	while (1)
 	{
 		sem_wait(env->sem_board);
 		system("clear");
 		game_display(env);
 		sem_post(env->sem_board);
-		printf("Press any key to start the game\n");
-		ret = poll(fd, 1, 100);
-		if (ret != 0)
+		ft_putendl("Press any key to start the game\n");
+		if (read(0, buf, 255) > 0)
 			break ;
+		usleep(100);
 	}
-	read(0, buf, 255);
 	sem_wait(env->sem_board);
 	broadcast_ready(env);
 	sem_post(env->sem_board);

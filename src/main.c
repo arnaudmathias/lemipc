@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/09 18:32:27 by amathias          #+#    #+#             */
-/*   Updated: 2018/01/03 18:27:59 by amathias         ###   ########.fr       */
+/*   Updated: 2018/01/04 14:37:02 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,15 @@ void	connect_player(t_env *env, char *team_num)
 	ft_memset(env, 0, sizeof(t_env));
 	init_msqs(env);
 	init_shared_memory(env);
-	if (team_num[0] > 0)
+	env->team_id = team_num[0];
+	sem_wait(env->sem_board);
+	if (place_player(env) == 0)
 	{
-		env->team_id = team_num[0];
-		sem_wait(env->sem_board);
-		if (place_player(env) == 0)
-			err_exit("Error: cannot place player, map is full");
 		sem_post(env->sem_board);
+		err_exit("Error: cannot place player, map is full");
 	}
 	else
-		err_exit("Invalid team id");
+		sem_post(env->sem_board);
 	env->shared->player_counter++;
 }
 
@@ -39,8 +38,6 @@ void	disconnect_player(t_env *env)
 	if (sem_wait(env->sem_board) == 0)
 	{
 		env->shared->player_counter--;
-		if (env->is_ready)
-			env->shared->player_ready--;
 		env->shared->board[env->pos.y][env->pos.x] = 0;
 		if (env->shared->player_counter <= 0)
 		{
@@ -61,8 +58,6 @@ void	disconnect_player(t_env *env)
 void	disconnect_waiting_player(t_env *env)
 {
 	env->shared->player_counter--;
-	if (env->is_ready)
-		env->shared->player_ready--;
 	env->shared->board[env->pos.y][env->pos.x] = 0;
 	if (env->shared->player_counter <= 0)
 	{
